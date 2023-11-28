@@ -21,6 +21,7 @@ class login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialisez binding ici avant toute chose
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -1,5 +1,6 @@
 package com.example.ecoguide.View
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -51,23 +52,25 @@ class forget_password : AppCompatActivity() {
             val telephone = binding.smsInput.text.toString().trim()
             //     Log.d("LoginActivity", "Email: $email, Password: $password")
             // val request = loginRequest(email, password)
-            Toast.makeText(this, "Sending Mail...", Toast.LENGTH_SHORT).show()
 
             if (email.isEmpty() ) {
-
                 Snackbar.make(binding.root, "Mail input is required", Snackbar.LENGTH_SHORT).show()
             } else {
+                Toast.makeText(this, "Sending Mail...", Toast.LENGTH_SHORT).show()
+
                 val forgotPasswordBody = ForgotPasswordBody(email = email)
+
                 apiInterface.forgetPassword(forgotPasswordBody).enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(
                         call: retrofit2.Call<LoginResponse>,
                         response: Response<LoginResponse>
                     ) {
                         if (response.isSuccessful) {
-                            val loginResponse = response.body()
+                           // val loginResponse = response.body()
+93
                             Snackbar.make(binding.root, "Mail has been succeffully,Check your inbox : ${response.errorBody()?.string()}", Snackbar.LENGTH_LONG).show()
-
-                            // Vérifiez si loginResponse n'est pas null et que le token n'est pas null
+                             val intent = Intent(this@forget_password, Code_Verification::class.java)
+                            startActivity(intent)
 
                         } else {
                             // Gérez les autres cas de réponse non réussie
