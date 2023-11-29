@@ -57,16 +57,14 @@ class forget_password : AppCompatActivity() {
             //     Log.d("LoginActivity", "Email: $email, Password: $password")
             // val request = loginRequest(email, password)
 
-            if (email.isEmpty() ) {
+            if (email.isEmpty() ){
                 Snackbar.make(binding.root, "Mail input is required", Snackbar.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Sending Mail...", Toast.LENGTH_SHORT).show()
 
-                lifecycleScope.launch {
 
                 val forgotPasswordBody = ForgotPasswordBody(email = email)
-                withContext(Dispatchers.IO){
-                    apiInterface.forgetPassword(forgotPasswordBody).enqueue(object : Callback<LoginResponse> {
+                     apiInterface.forgetPassword(forgotPasswordBody).enqueue(object : Callback<LoginResponse> {
                         override fun onResponse(
                             call: retrofit2.Call<LoginResponse>,
                             response: Response<LoginResponse>
@@ -100,5 +98,3 @@ class forget_password : AppCompatActivity() {
 
 
 
-    }
-}

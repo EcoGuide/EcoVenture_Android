@@ -18,7 +18,7 @@ interface ApiService {
     @POST("signupU")
     fun signup_User(@Body user: User): Call<LoginResponse>
     @POST("forgot-password")
-    suspend fun forgetPassword(@Body body: ForgotPasswordBody): Call<LoginResponse>
+      fun forgetPassword(@Body body: ForgotPasswordBody): Call<LoginResponse>
     @POST("reset-password")
     fun resetPassword(@Header("Authorization") header: String,@Body body: ResetPassword): Call<LoginResponse>
 

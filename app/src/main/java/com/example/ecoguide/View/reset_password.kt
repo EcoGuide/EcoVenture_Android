@@ -3,6 +3,7 @@ package com.example.ecoguide.View
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.ecoguide.Model.LoginResponse
 import com.example.ecoguide.Model.ResetPassword
@@ -41,11 +42,16 @@ class reset_password : AppCompatActivity() {
                     "com.example.myapp.PREFERENCE_FILE_KEY",
                     Context.MODE_PRIVATE
                 )
+                //-----------------Get Code from forget_password_activity-----------------
                 val savedCodeInput = sharedPref.getString("CodeVerification", null) // Utilisez null ou une valeur par défaut si vous le souhaitez
-                val Verification_Code = savedCodeInput.toString()
-                val resetPasswordBody = ResetPassword(code = Verification_Code, password = newPwd)
-                val header="hello";
-                apiInterface.resetPassword(header =header ,resetPasswordBody).enqueue(object : Callback<LoginResponse> {
+                Log.d("Code veriffication", "${savedCodeInput.toString()}")
+
+                val resetPasswordBody = ResetPassword( savedCodeInput.toString(), newPwd)
+                //----- Get Token from Share Preferences to include it to header Authorization---------
+                val header = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null) ;
+                Log.d("Code veriffication", "${header.toString()}")
+
+                apiInterface.resetPassword(  "Bearer ${header.toString() }",resetPasswordBody).enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(
                         call: retrofit2.Call<LoginResponse>,
                         response: Response<LoginResponse>
