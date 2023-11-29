@@ -20,7 +20,7 @@ interface ApiService {
     @POST("forgot-password")
       fun forgetPassword(@Body body: ForgotPasswordBody): Call<LoginResponse>
     @POST("reset-password")
-    fun resetPassword(@Header("Authorization") header: String,@Body body: ResetPassword): Call<LoginResponse>
+    suspend fun resetPassword(@Header("Authorization") header: String,@Body body: ResetPassword): Call<LoginResponse>
 
     // @Multipart
     /* @POST("signupU")

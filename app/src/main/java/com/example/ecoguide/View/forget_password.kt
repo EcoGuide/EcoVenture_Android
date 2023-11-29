@@ -1,8 +1,10 @@
 package com.example.ecoguide.View
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.RadioGroup
@@ -70,6 +72,41 @@ class forget_password : AppCompatActivity() {
                             response: Response<LoginResponse>
                         ) {
                             if (response.isSuccessful) {
+                                val loginResponse = response.body()
+
+                                loginResponse?.let {
+                                    if (it.Token != null) {
+                                        val sharedPref = getSharedPreferences(
+                                            "com.example.myapp.PREFERENCE_FILE_KEY",
+                                            Context.MODE_PRIVATE
+                                        )
+                                        with(sharedPref.edit()) {
+                                            putString("TOKEN_VERIFICATION", it.Token)
+                                            apply()
+                                        }
+
+                                        Snackbar.make(
+                                            binding.root,
+                                            "Connexion réussie : ${it.Token}",
+                                            Snackbar.LENGTH_LONG
+                                        ).show()
+                                        Log.d("LoginSuccess", "Token: ${it.Token}")
+                                    } else {
+                                        // Gérez le cas où le token est null
+                                        Snackbar.make(
+                                            binding.root,
+                                            "La connexion a réussi, mais le token est absent",
+                                            Snackbar.LENGTH_LONG
+                                        ).show()
+                                    }
+                                } ?: run {
+                                    // Gérez le cas où loginResponse est null
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Réponse de connexion invalide",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                }
                                 Snackbar.make(binding.root, "Mail has been succeffully,Check your inbox : ${response.errorBody()?.string()}", Snackbar.LENGTH_LONG).show()
                                  val intent = Intent(this@forget_password, Code_Verification::class.java)
                                 startActivity(intent)
@@ -92,6 +129,7 @@ class forget_password : AppCompatActivity() {
             }
             }
         }
+
 
 
 
