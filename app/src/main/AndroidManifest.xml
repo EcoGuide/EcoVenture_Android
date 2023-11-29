@@ -32,13 +32,13 @@
             android:name="com.example.ecoguide.View.verify_code"
             android:exported="false" />
         <activity
-            android:name="com.example.ecoguide.View.login"
+            android:name="com.example.ecoguide.View.forget_password"
             android:exported="false" />
         <activity
             android:name="com.example.ecoguide.View.register"
             android:exported="false" />
         <activity
-            android:name="com.example.ecoguide.View.forget_password"
+            android:name="com.example.ecoguide.View.login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
