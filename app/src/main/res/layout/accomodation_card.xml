@@ -21,7 +21,7 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewhotel"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
