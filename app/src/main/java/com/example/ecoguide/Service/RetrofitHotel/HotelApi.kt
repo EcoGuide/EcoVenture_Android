@@ -3,6 +3,7 @@ package tn.esprit.ecoventura.apiService
 
 
 import com.example.ecoguide.Model.HotelApiResponse
+import com.google.gson.Gson
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

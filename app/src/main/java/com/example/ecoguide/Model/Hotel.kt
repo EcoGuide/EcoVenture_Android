@@ -8,12 +8,12 @@ data class Hotel(
     val location: String,
     val image: String,
     val description: String,
-    val Favoris: Comparable<*>,
+    val Favoris: Int,
     val rating: String,
-    val nbStars: Comparable<*>,
-    val nbChambre: Comparable<*>,
-    val price: String,
-    val chambres: List<Chambres>):Parcelable {
+    val nbStars: Int,
+    val nbChambre: Int,
+    val price: Int,
+    val chambres: List<Chambres>)/* {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -24,7 +24,7 @@ data class Hotel(
         parcel.readString() ?: "",
         parcel.readInt() ?: "",
         parcel.readInt() ?: "",
-        parcel.readString() ?: "",
+        parcel.readInt() ?: 0,
         parcel.createTypedArrayList(Chambres.CREATOR) ?: emptyList(),
         ) override fun describeContents(): Int {
         return 0
@@ -35,7 +35,7 @@ data class Hotel(
         parcel.writeString(image)
         parcel.writeString(description)
         parcel.writeString(rating)
-        parcel.writeString(price)
+        parcel.writeInt(price)
         parcel.writeInt(Favoris as Int)
         parcel.writeInt(nbStars as Int)
         parcel.writeInt(nbChambre as Int)
@@ -52,7 +52,7 @@ data class Hotel(
 
 
     }
-}
+}*/
 data class HotelApiResponse(
     val statusCode: Int,
     val message: String,

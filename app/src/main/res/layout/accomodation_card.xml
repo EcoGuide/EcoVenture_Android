@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/imageViewhotel"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="150dp"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center_vertical"
                 />
@@ -59,8 +59,8 @@
                     android:layout_marginTop="5dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@drawable/ic_star_foreground"
                         />
 
@@ -95,8 +95,8 @@
                     android:text="/ night" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_bookmark_foreground"
                     />
             </LinearLayout>

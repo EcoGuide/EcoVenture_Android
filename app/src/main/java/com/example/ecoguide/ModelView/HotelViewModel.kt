@@ -15,7 +15,7 @@ class HotelViewModel: ViewModel() {
 
 
 
-    fun getGuide(): LiveData<List<Hotel>> = hotel
+    fun gethotel(): LiveData<List<Hotel>> = hotel
     fun getErrorMessage(): LiveData<String> = errorMessage
 
 

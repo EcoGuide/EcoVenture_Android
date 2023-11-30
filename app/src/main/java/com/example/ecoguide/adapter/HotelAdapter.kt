@@ -20,8 +20,13 @@ class HotelAdapter(private val listener: OnItemClickListener) : RecyclerView.Ada
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotelViewHolder {
+       /* if(viewType == 0){
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.accomodation_card, parent, false)
+            return HotelViewHolder(view)
+        }*/
         val view = LayoutInflater.from(parent.context).inflate(R.layout.accomodation_card, parent, false)
         return HotelViewHolder(view)
+
     }
 
     override fun onBindViewHolder(holder: HotelViewHolder, position: Int) {
@@ -33,6 +38,12 @@ class HotelAdapter(private val listener: OnItemClickListener) : RecyclerView.Ada
         return myHotels.size
     }
 
+/*    override fun getItemViewType(position: Int): Int {
+        if(myHotels[position] is Hotel){
+            return 1
+        }
+        return 0
+    }*/
     inner class HotelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val hotelNameTextView: TextView = itemView.findViewById(R.id.fullnameTextView)
         private val locationTextView: TextView = itemView.findViewById(R.id.locationTextView)
@@ -53,7 +64,7 @@ class HotelAdapter(private val listener: OnItemClickListener) : RecyclerView.Ada
             hotelNameTextView.text = hotel.hotelname
             locationTextView.text = hotel.location
             nbStarsTextView.text = hotel.nbStars.toString()
-            priceTextView.text = hotel.price
+            priceTextView.text = hotel.price.toString()
 
             val imageUrl = hotel.image
             Log.d("image", "$imageUrl")
