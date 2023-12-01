@@ -4,9 +4,11 @@ import com.example.ecoguide.Model.ForgotPasswordBody
 import com.example.ecoguide.Model.LoginResponse
 import com.example.ecoguide.Model.ResetPassword
 import com.example.ecoguide.Model.User
+import com.example.ecoguide.Model.UserDetailsResponse
 import com.example.ecoguide.Model.loginRequest
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -21,6 +23,8 @@ interface ApiService {
       fun forgetPassword(@Body body: ForgotPasswordBody): Call<LoginResponse>
     @POST("reset-password")
     suspend fun resetPassword(@Header("Authorization") header: String,@Body body: ResetPassword): Call<LoginResponse>
+    @GET("UserDetails")
+    fun UserDetails(@Header("Authorization") token: String): Call<UserDetailsResponse>
 
     // @Multipart
     /* @POST("signupU")
