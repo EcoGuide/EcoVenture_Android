@@ -71,9 +71,10 @@ class forget_password : AppCompatActivity() {
                             call: retrofit2.Call<LoginResponse>,
                             response: Response<LoginResponse>
                         ) {
+
                             if (response.isSuccessful) {
                                 val loginResponse = response.body()
-
+// live.value = response.body
                                 loginResponse?.let {
                                     if (it.Token != null) {
                                         val sharedPref = getSharedPreferences(
@@ -108,8 +109,10 @@ class forget_password : AppCompatActivity() {
                                     ).show()
                                 }
                                 Snackbar.make(binding.root, "Mail has been succeffully,Check your inbox : ${response.errorBody()?.string()}", Snackbar.LENGTH_LONG).show()
-                                 val intent = Intent(this@forget_password, Code_Verification::class.java)
-                                startActivity(intent)
+
+                                    val intent =
+                                        Intent(this@forget_password, Code_Verification::class.java)
+                                    startActivity(intent)
 
                             } else {
                                  Snackbar.make(binding.root, "An error was occured while sending mail : ${response.errorBody()?.string()}", Snackbar.LENGTH_LONG).show()
@@ -127,6 +130,7 @@ class forget_password : AppCompatActivity() {
 
                 }
             }
+        //viewmodel.live.observe()
             }
         }
 

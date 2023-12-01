@@ -5,6 +5,9 @@
     <color name="primaryblue">#176FF2</color>
     <color name="secondBlue">#CADBF4</color>
     <color name="bluewithopacity">#B9D3F9</color>
+    <color name="gray_profile">#E9E9E9</color>
+    <color name="red">#EC0707</color>
+
 
 
 </resources>
