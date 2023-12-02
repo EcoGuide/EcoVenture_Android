@@ -1,5 +1,6 @@
 package com.example.ecoguide.View
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -110,6 +111,7 @@ class AccommodationActivity : AppCompatActivity(), HotelAdapter.OnItemClickListe
     }
 
     override fun onItemClick(hotel: Hotel) {
-        Log.d("c", "hello")
-    }
+        val intent = Intent(this, HotelDetailActivity::class.java)
+        intent.putExtra("_id", hotel._id)
+        startActivity(intent)    }
 }

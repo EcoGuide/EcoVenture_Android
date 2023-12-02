@@ -75,37 +75,51 @@
 
     <!-- RecyclerView for Hotel Options -->
     <LinearLayout
-        android:id="@+id/layout_dtails"
+        android:id="@+id/layout_hotel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/text_hotel_description"
-        android:orientation="horizontal">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_options"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="16dp"
-        tools:listitem="@layout/item_option_card"/>
-    </LinearLayout>
-    <!-- RecyclerView for Room Types -->
-    <LinearLayout
-        android:id="@+id/layout_room"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layout_dtails"
         android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_room_types"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recycler_view_options"
-        android:layout_marginTop="16dp"
-        android:padding="16dp"
-        android:background="@android:color/darker_gray"
-        android:clipToPadding="false"
-        android:scrollbars="vertical"
-        tools:listitem="@layout/item_room_type" />
+
+        <TextView
+            android:id="@+id/textView_Hotel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="Chambres"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_Chambres"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:padding="16dp"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_room_type" />
     </LinearLayout>
+    <!-- RecyclerView for Room Types -->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_room"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/layout_dtails"-->
+<!--        android:orientation="vertical">-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recycler_view_room_types"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/recycler_view_options"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:padding="16dp"-->
+<!--        android:background="@android:color/darker_gray"-->
+<!--        android:clipToPadding="false"-->
+<!--        android:scrollbars="vertical"-->
+<!--        tools:listitem="@layout/item_room_type" />-->
+<!--    </LinearLayout>-->
 </RelativeLayout>

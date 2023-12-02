@@ -12,7 +12,7 @@ data class Chambres(
     val nbChambreType: Int, // Use an appropriate numeric type here, like Int
     val nbPlace: Int // Use an appropriate numeric type here, like Int
     //val reservations
-) : Parcelable {
+)/* : Parcelable {
     @RequiresApi(Build.VERSION_CODES.Q)
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
@@ -51,7 +51,7 @@ data class Chambres(
             return arrayOfNulls(size)
         }
     }
-}
+}*/
 
 data class ChambresApiResponse(
     val statusCode: Int,
