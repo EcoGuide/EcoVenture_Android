@@ -2,7 +2,7 @@ package com.example.ecoguide.View
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.example.ecoguide.Model.EditUser
 import com.example.ecoguide.Model.LoginResponse
 import com.example.ecoguide.Model.LogoutResponse
@@ -27,6 +28,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.biometric.BiometricPrompt
 
 class profile : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -40,8 +42,9 @@ class profile : AppCompatActivity() {
         setContentView(binding.root)
         val apiInterface = RetrofitClient.buildService(ApiService::class.java)
 
-        val sharedPref = getSharedPreferences("com.example.myapp.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE)
-        val token = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null) ;
+        val sharedPref =
+            getSharedPreferences("com.example.myapp.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE)
+        val token = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null);
         Log.d(" Authenticate Token", "${token.toString()}")
 //-------------------------------------------------------------------------------------------------------------------
         val editButton = findViewById<TextView>(R.id.profileedit)
@@ -55,156 +58,105 @@ class profile : AppCompatActivity() {
         //----- Get Token from Share Preferences to include it to header Authorization---------
 
 
-       //----------------------------------------Fetch User Details -----------------------------------
+        // <!-------------------- Fetch User Details  Logique ----------------!>
         try {
             if (token != null) {
                 CoroutineScope(Dispatchers.IO).launch {
 
-                apiInterface.UserDetails("Bearer $token").enqueue(object : Callback<UserDetailsResponse> {
-                    override fun onResponse(
-                        call: Call<UserDetailsResponse>,
-                        response: Response<UserDetailsResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            val userDetails = response.body()
-                            userDetails?.let { user ->
+                    apiInterface.UserDetails("Bearer $token")
+                        .enqueue(object : Callback<UserDetailsResponse> {
+                            override fun onResponse(
+                                call: Call<UserDetailsResponse>,
+                                response: Response<UserDetailsResponse>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val userDetails = response.body()
+                                    userDetails?.let { user ->
 
-                                runOnUiThread {
-                                     binding.Username.text = user.name
-                                    binding.textViewEmail.text = user.email
-                                    binding.textViewPhoneNumber.text = user.telephone
+                                        runOnUiThread {
+                                            binding.Username.text = user.name
+                                            binding.textViewEmail.text = user.email
+                                            binding.textViewPhoneNumber.text = user.telephone
+                                        }
+                                    } ?: run {
+                                        Snackbar.make(
+                                            binding.root,
+                                            "Réponse de connexion invalide",
+                                            Snackbar.LENGTH_LONG
+                                        ).show()
+                                    }
+                                } else {
+                                    // Gérez les autres cas de réponse non réussie
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Échec de la connexion : ${response.errorBody()?.string()}",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+
+                                    Log.d("LoginFail", "La réponse n'a pas été réussie")
                                 }
-                            } ?: run {
+                            }
+
+                            override fun onFailure(
+                                call: Call<UserDetailsResponse>,
+                                t: Throwable
+                            ) {
+                                // Gestion des erreurs de réseau ou des exceptions inattendues
                                 Snackbar.make(
                                     binding.root,
-                                    "Réponse de connexion invalide",
+                                    "Erreur de connexion : ${t.message}",
                                     Snackbar.LENGTH_LONG
                                 ).show()
+                                Log.d("LoginError", "Échec : ${t.message}")
                             }
-                        } else {
-                            // Gérez les autres cas de réponse non réussie
-                            Snackbar.make(
-                                binding.root,
-                                "Échec de la connexion : ${response.errorBody()?.string()}",
-                                Snackbar.LENGTH_LONG
-                            ).show()
-
-                            Log.d("LoginFail", "La réponse n'a pas été réussie")
-                        }
-                    }
-
-                    override fun onFailure(
-                        call: Call<UserDetailsResponse>,
-                        t: Throwable
-                    ) {
-                        // Gestion des erreurs de réseau ou des exceptions inattendues
-                        Snackbar.make(
-                            binding.root,
-                            "Erreur de connexion : ${t.message}",
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                        Log.d("LoginError", "Échec : ${t.message}")
-                    }
 
 
-                })
-            }}
-            }catch (e: Exception){
+                        })
+                }
+            }
+        } catch (e: Exception) {
             Snackbar.make(
                 binding.root,
                 "An error was occured while fetching User Details !! }",
                 Snackbar.LENGTH_LONG
             ).show()
-            }
-
-        editButton.setOnClickListener {
-            val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_profile, null)
-            val userNameEditText = dialogView.findViewById<EditText>(R.id.editTextUserName)
-            val userEmailEditText = dialogView.findViewById<EditText>(R.id.editTextUserEmail)
-            val userPhoneEditText = dialogView.findViewById<EditText>(R.id.editTextUserPhone)
-            val userPWDEditText = dialogView.findViewById<EditText>(R.id.editTextPassword)
-
-            AlertDialog.Builder(this)
-                .setView(dialogView)
-                .setTitle("Edit you Profile")
-                .setPositiveButton("Save changes") { dialog, which ->
-                    val userName = userNameEditText.text.toString()
-                    val userEmail = userEmailEditText.text.toString()
-                    val userPhone = userPhoneEditText.text.toString()
-                    val userPWD = userPWDEditText.text.toString()
-
-                    val sharedPref = getSharedPreferences(
-                        "com.example.myapp.PREFERENCE_FILE_KEY",
-                        Context.MODE_PRIVATE
-                    )
-                    val useredit = EditUser(userName, userEmail, userPWD)
-                    val Edittoken = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null);
-                    Log.d(" Edit_token  ", "${Edittoken.toString()}")
-
-
-                    if (Edittoken != null) {
-                        apiInterface.EditProfile("Bearer $Edittoken", useredit)
-                            .enqueue(object : Callback<LoginResponse> {
-                                override fun onResponse(
-                                    call: Call<LoginResponse>,
-                                    response: Response<LoginResponse>
-                                ) {
-                                    if (response.isSuccessful) {
-                                        //  CoroutineScope(Dispatchers.Main).launch {
-                                        Snackbar.make(
-                                            binding.root,
-                                            "Your Profile has been succefully Edited : ${
-                                                response.errorBody()?.string()
-                                            }",
-                                            Snackbar.LENGTH_LONG
-                                        ).show()
-                                        //   }
-                                    } else {
-                                        //  CoroutineScope(Dispatchers.Main).launch {
-                                        Log.d(" Edit_token  ", "${Edittoken.toString()}")
-
-                                        Snackbar.make(
-                                            binding.root,
-                                            "An error was occured while  editting your profile  : ${
-                                                response.errorBody()?.string()
-                                            }",
-                                            Snackbar.LENGTH_LONG
-                                        ).show()
-
-                                        Log.d(
-                                            "LoginFail",
-                                            "La réponse n'a pas été réussie"
-                                        )
-                                    }
-                                    //}
-                                }
-
-                                override fun onFailure(
-                                    call: Call<LoginResponse>,
-                                    t: Throwable
-                                ) {
-                                    //  CoroutineScope(Dispatchers.Main).launch {
-                                    Snackbar.make(
-                                        binding.root,
-                                        "Erreur de connexion : ${t.message}",
-                                        Snackbar.LENGTH_LONG
-                                    ).show()
-                                    Log.d("LoginError", "Échec : ${t.message}")
-                                    //  }
-                                }
-
-
-                            })
-                    }
-
-
-                }
-
-
-                .setNegativeButton("Annuler", null)
-                .show()
         }
-        //_____________________________________LOGOUT___________________________________________________
+
+        //<!--------------- Edit Profile With Biometric Touch ID Logique  -------------!>
+         editButton.setOnClickListener {
+              val promptInfo = BiometricPrompt.PromptInfo.Builder()
+                 .setTitle("Verification required")
+                 .setSubtitle("Please verify your identity")
+                 .setNegativeButtonText("Cancel")
+                 .build()
+
+              val biometricPrompt = BiometricPrompt(this, ContextCompat.getMainExecutor(this),
+                 object : BiometricPrompt.AuthenticationCallback() {
+                     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                         super.onAuthenticationError(errorCode, errString)
+
+                      }
+
+                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                         super.onAuthenticationSucceeded(result)
+                          runOnUiThread {
+                             showEditProfileDialog()
+                         }
+                     }
+
+                     override fun onAuthenticationFailed() {
+                         super.onAuthenticationFailed()
+                         // Gérer l'échec d'authentification
+                         // ...
+                     }
+                 })
+
+             // Afficher le prompt biométrique
+             biometricPrompt.authenticate(promptInfo)
+    }
+
+
+        // <!-------------------Logout Logique --------------------!>
         binding.Logout.setOnClickListener {
 
             try {
@@ -260,8 +212,102 @@ class profile : AppCompatActivity() {
             }catch (e: Exception){
 
         }
+
      } // Oncreate end -------
 
 
 }
+
+
+   //<!-------------------Private Function--------------------!>
+    private fun showEditProfileDialog() {
+        val apiInterface = RetrofitClient.buildService(ApiService::class.java)
+
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_profile, null)
+        val userNameEditText = dialogView.findViewById<EditText>(R.id.editTextUserName)
+        val userEmailEditText = dialogView.findViewById<EditText>(R.id.editTextUserEmail)
+        val userPhoneEditText = dialogView.findViewById<EditText>(R.id.editTextUserPhone)
+        val userPWDEditText = dialogView.findViewById<EditText>(R.id.editTextPassword)
+
+        AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setTitle("Edit you Profile")
+            .setPositiveButton("Save changes") { dialog, which ->
+                val userName = userNameEditText.text.toString()
+                val userEmail = userEmailEditText.text.toString()
+                val userPhone = userPhoneEditText.text.toString()
+                val userPWD = userPWDEditText.text.toString()
+
+                val sharedPref = getSharedPreferences(
+                    "com.example.myapp.PREFERENCE_FILE_KEY",
+                    Context.MODE_PRIVATE
+                )
+                val useredit = EditUser(userName, userEmail, userPWD)
+                val Edittoken = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null);
+                Log.d(" Edit_token  ", "${Edittoken.toString()}")
+
+
+                if (Edittoken != null) {
+                    apiInterface.EditProfile("Bearer $Edittoken", useredit)
+                        .enqueue(object : Callback<LoginResponse> {
+                            override fun onResponse(
+                                call: Call<LoginResponse>,
+                                response: Response<LoginResponse>
+                            ) {
+                                if (response.isSuccessful) {
+                                    //  CoroutineScope(Dispatchers.Main).launch {
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Your Profile has been succefully Edited : ${
+                                            response.errorBody()?.string()
+                                        }",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                    //   }
+                                } else {
+                                    //  CoroutineScope(Dispatchers.Main).launch {
+                                    Log.d(" Edit_token  ", "${Edittoken.toString()}")
+
+                                    Snackbar.make(
+                                        binding.root,
+                                        "An error was occured while  editting your profile  : ${
+                                            response.errorBody()?.string()
+                                        }",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+
+                                    Log.d(
+                                        "LoginFail",
+                                        "La réponse n'a pas été réussie"
+                                    )
+                                }
+                                //}
+                            }
+
+                            override fun onFailure(
+                                call: Call<LoginResponse>,
+                                t: Throwable
+                            ) {
+                                //  CoroutineScope(Dispatchers.Main).launch {
+                                Snackbar.make(
+                                    binding.root,
+                                    "Erreur de connexion : ${t.message}",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                                Log.d("LoginError", "Échec : ${t.message}")
+                                //  }
+                            }
+
+
+                        })
+                }
+
+
+            }
+
+
+            .setNegativeButton("Annuler", null)
+            .show()
+    }
+
 }
