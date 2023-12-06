@@ -2,6 +2,7 @@ package tn.esprit.ecoventura.apiService
 
 
 
+import Chambres
 import com.example.ecoguide.Model.Hotel
 import com.example.ecoguide.Model.HotelApiResponse
 import com.google.gson.Gson
@@ -16,6 +17,8 @@ interface HotelApi {
     suspend fun getAllHotels(): Response<HotelApiResponse>
     @GET("/api/hotel/{id}")
     suspend fun getOnce(@Path("id") _id: String): Response<Hotel>
+    @GET("/api/hotel/{id}/chambres")
+    suspend fun getchambreshotel(@Path("id") _id: String): Response< ArrayList<Chambres>>
     companion object {
         private var BASE_URL = "http://192.168.117.1:3000/"
         fun create(): HotelApi {
