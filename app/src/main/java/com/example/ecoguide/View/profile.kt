@@ -1,12 +1,14 @@
 package com.example.ecoguide.View
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
- import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -14,12 +16,10 @@ import androidx.core.content.ContextCompat
 import com.example.ecoguide.Model.EditUser
 import com.example.ecoguide.Model.LoginResponse
 import com.example.ecoguide.Model.LogoutResponse
-import com.example.ecoguide.Model.ResetPassword
 import com.example.ecoguide.Model.UserDetailsResponse
 import com.example.ecoguide.Service.RetrofitUser.ApiService
 import com.example.ecoguide.Service.RetrofitUser.RetrofitClient
 import com.example.myapplication.R
-import com.example.myapplication.databinding.ActivityLoginBinding
 import com.example.myapplication.databinding.ActivityProfileBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -29,10 +29,84 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import androidx.biometric.BiometricPrompt
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 class profile : AppCompatActivity() {
-    private lateinit var binding: ActivityProfileBinding
 
+    private lateinit var binding: ActivityProfileBinding
+    val PICK_IMAGE_REQUEST = 1
+    val apiInterface = RetrofitClient.buildService(ApiService::class.java)
+    private var token_de_passage: String? = null
+    private var imageUri: Uri? = null
+
+
+    fun chooseImageFromGallery() {
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST)
+    }
+
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            val selectedImageUri = data?.data
+            if (selectedImageUri != null) {
+                uploadImage(selectedImageUri)
+            }
+        }
+    }*/
+
+    fun uploadImage(imageUri: Uri) {
+        try {
+            // Utilisez la méthode prepareImagePart pour préparer la partie image
+            val body = prepareImagePart(imageUri)
+
+            token_de_passage?.let { authToken ->
+                val call = apiInterface.EditProfilePhoto("Bearer $authToken", body)
+                call.enqueue(object : Callback<LoginResponse> {
+                    override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                        if (response.isSuccessful) {
+                            Snackbar.make(
+                                binding.root,
+                                "Image Updated : ${response.errorBody()?.string()}",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Snackbar.make(
+                                binding.root,
+                                "Error while updating image: ${response.errorBody()?.string()}",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                        Snackbar.make(
+                            binding.root,
+                            "Error: ${t.message}",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                })
+            } ?: run {
+                Snackbar.make(
+                    binding.root,
+                    "Authentication token not found",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        } catch (e: Exception) {
+            Snackbar.make(
+                binding.root,
+                "An error occurred: ${e.message}",
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +120,65 @@ class profile : AppCompatActivity() {
             getSharedPreferences("com.example.myapp.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE)
         val token = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null);
         Log.d(" Authenticate Token", "${token.toString()}")
-//-------------------------------------------------------------------------------------------------------------------
-        val editButton = findViewById<TextView>(R.id.profileedit)
-        /*   editButton.setOnClickListener {
-               val intent = Intent(this, Edit_Profile::class.java)
-               startActivity(intent)
-               finish()
-           }
-            */
+         val editButton = findViewById<TextView>(R.id.profileedit)
+        token_de_passage = token;
 
-        //----- Get Token from Share Preferences to include it to header Authorization---------
+        binding.btnEditImage.setOnClickListener{
+            openImageChooser()
+        }
+                 // --------------------- Edit Image ---------------------
+        /* binding.btnEditImage.setOnClickListener {
+         try {
+             if (token != null) {
+                 CoroutineScope(Dispatchers.IO).launch {
+
+                     apiInterface.EditProfilePhoto("Bearer $token")
+                         .enqueue(object : Callback<LoginResponse> {
+                             override fun onResponse(
+                                 call: Call<LoginResponse>,
+                                 response: Response<LoginResponse>
+                             ) {
+                                 if (response.isSuccessful) {
+
+                                 } else {
+                                     // Gérez les autres cas de réponse non réussie
+                                     Snackbar.make(
+                                         binding.root,
+                                         "Échec de la connexion : ${response.errorBody()?.string()}",
+                                         Snackbar.LENGTH_LONG
+                                     ).show()
+
+                                     Log.d("LoginFail", "La réponse n'a pas été réussie")
+                                 }
+                             }
+
+                             override fun onFailure(
+                                 call: Call<LoginResponse>,
+                                 t: Throwable
+                             ) {
+                                 // Gestion des erreurs de réseau ou des exceptions inattendues
+                                 Snackbar.make(
+                                     binding.root,
+                                     "Erreur de connexion : ${t.message}",
+                                     Snackbar.LENGTH_LONG
+                                 ).show()
+                                 Log.d("LoginError", "Échec : ${t.message}")
+                             }
 
 
+                         })
+                 }
+             }
+         }  catch (e: Exception) {
+             Snackbar.make(
+                 binding.root,
+                 "An error was occured while updating your image  !! }",
+                 Snackbar.LENGTH_LONG
+             ).show()
+
+         }
+        }
+*/
         // <!-------------------- Fetch User Details  Logique ----------------!>
         try {
             if (token != null) {
@@ -309,5 +430,46 @@ class profile : AppCompatActivity() {
             .setNegativeButton("Annuler", null)
             .show()
     }
+    fun getRealPathFromURI(contentUri: Uri): String {
+        var path: String = ""
+        val cursor = contentResolver.query(contentUri, null, null, null, null)
+        if (cursor == null) {
+            path = contentUri.path!!
+        } else {
+            cursor.moveToFirst()
+            val index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            path = cursor.getString(index)
+            cursor.close()
+        }
+        return path
+    }
+    private fun openImageChooser() {
+        Intent(Intent.ACTION_PICK).also {
+            it.type="image/*"
+            val mimetypes = arrayOf("image/jpeg","image/png")
+            it.putExtra(Intent.EXTRA_MIME_TYPES,mimetypes)
+            startActivityForResult(it,REQUEST_CODE_IMAGE)
+        }
+    }
+    companion object {
+        const val REQUEST_CODE_IMAGE = 101
+    }
 
+
+    fun prepareImagePart(imageUri: Uri): MultipartBody.Part {
+        val inputStream = contentResolver.openInputStream(imageUri)
+        val requestFile = inputStream?.readBytes()?.toRequestBody("image/jpeg".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("image", "image.jpg", requestFile!!)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK) {
+            val selectedImageUri: Uri? = data?.data
+
+            binding.imageViewProfilePicture.setImageURI(selectedImageUri)
+            imageUri = selectedImageUri
+        }
+    }
 }

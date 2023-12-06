@@ -7,31 +7,37 @@
     android:padding="16dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="400sp"
+        android:layout_height="140sp"
          android:padding="24dp"
         android:orientation="horizontal"
         android:background="@drawable/profile_editting"
         android:gravity="center_vertical">
-s
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewProfilePicture"
-            android:layout_width="103dp"
-            android:layout_height="101dp"
+            android:layout_width="100sp"
+            android:layout_height="90sp"
             android:layout_marginRight="16dp"
             android:scaleType="centerCrop"
             android:background="@drawable/circular_image"
                  />
-
         <TextView
             android:id="@+id/Username"
-            android:layout_width="wrap_content"
+            android:layout_width="169dp"
             android:layout_height="wrap_content"
 
             android:layout_gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <!-- Ajoutez ici d'autres éléments si nécessaire -->
+        <ImageButton
+            android:id="@+id/btnEditImage"
+            android:layout_width="25sp"
+             android:layout_height="25sp"
+            android:background="@drawable/updateimage"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="center_vertical"
+            />
     </LinearLayout>
 
 
