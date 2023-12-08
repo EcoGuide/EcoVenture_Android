@@ -55,7 +55,7 @@ lateinit var roomRecyclerView: RecyclerView
         lifecycleScope.launch(Dispatchers.Main) {
             try {
                 val response = apiService.getOnce(_id ?: "")
-                val response2 = apiService.getchambreshotel(_id ?: "")
+             //   val response2 = apiService.getchambreshotel(_id ?: "")
 
                 if (response.isSuccessful) {
                     val hotel = response.body()
@@ -69,13 +69,14 @@ lateinit var roomRecyclerView: RecyclerView
                     tvDescriptionDetails.text ="${hotel?.nbStars}"
                     tvCarbonFootprint.text = hotel?.location
                     tvWaterConsumption.text = hotel?.description
+                    roomAdapter.setRooms(hotel!!.chambres)
 
                 } else {
                     showToast("Failed to fetch hoteld details.")
                     Log.e("API_ERROR", "Error: ${response.code()}")
 
                 }
-                if (response2.isSuccessful) {
+               /* if (response2.isSuccessful) {
                     val chambre: ArrayList<Chambres>? = response2.body()
 
                     if (chambre != null) {
@@ -101,7 +102,7 @@ lateinit var roomRecyclerView: RecyclerView
                             // showToast("An error occurred.")
                         }
                     }
-                }
+                }*/
 
             } catch (e: Exception) {
                 showToast("An error occurred. Please try again later. ${e.message}")
