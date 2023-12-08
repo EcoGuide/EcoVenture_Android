@@ -54,6 +54,9 @@
             android:name="com.example.ecoguide.View.HotelDetailActivity"
             android:exported="false" />
         <activity
+        android:name="com.example.ecoguide.View.roomDetailActivity"
+        android:exported="false" />
+        <activity
             android:name="com.example.ecoguide.View.BookingFormActivity"
             android:exported="false" />
 <!--        <activity android:name="com.example.ecoguide.View.H" />-->

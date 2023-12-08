@@ -1,6 +1,5 @@
 package com.example.ecoguide.View
 
-import Chambres
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ecoguide.Model.Chambres
 import com.example.ecoguide.Model.HotelApiResponse
 import com.example.ecoguide.adapter.RoomAdapter
 import com.example.myapplication.R
@@ -42,7 +42,6 @@ lateinit var roomRecyclerView: RecyclerView
         val tvDescriptionDetails: TextView = findViewById(R.id.text_star_count)
         val tvCarbonFootprint: TextView = findViewById(R.id.text_hotel_location)
         val tvWaterConsumption: TextView = findViewById(R.id.text_hotel_description)
-//        val tvRecyclability: TextView = findViewById(R.id.tv_recyclability)
 
         // get hoteldId from intent
         val _id = intent.getStringExtra("_id")
@@ -55,7 +54,6 @@ lateinit var roomRecyclerView: RecyclerView
         lifecycleScope.launch(Dispatchers.Main) {
             try {
                 val response = apiService.getOnce(_id ?: "")
-             //   val response2 = apiService.getchambreshotel(_id ?: "")
 
                 if (response.isSuccessful) {
                     val hotel = response.body()
@@ -76,33 +74,7 @@ lateinit var roomRecyclerView: RecyclerView
                     Log.e("API_ERROR", "Error: ${response.code()}")
 
                 }
-               /* if (response2.isSuccessful) {
-                    val chambre: ArrayList<Chambres>? = response2.body()
 
-                    if (chambre != null) {
-                        roomList = chambre
-                        roomAdapter.setRooms(roomList)
-                        Log.d("hotelList", "$roomList")
-                    } else {
-                        showToast("Error: HotelApiResponse is null.")
-                    }
-                } else {
-                    when (response.code()) {
-                        401 -> {
-                            // Code 401: Unauthorized
-                            // Redirect the user to the login page or show an error message
-                            // showToast("Unauthorized. Redirecting to login.")
-                        }
-                        404 -> {
-                            // Code 404: Not Found
-                            // showToast("Hotels not found.")
-                        }
-                        else -> {
-                            // Show a generic error message
-                            // showToast("An error occurred.")
-                        }
-                    }
-                }*/
 
             } catch (e: Exception) {
                 showToast("An error occurred. Please try again later. ${e.message}")
@@ -116,7 +88,7 @@ lateinit var roomRecyclerView: RecyclerView
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
     override fun onItemClick(room: Chambres) {
-        val intent = Intent(this, HotelDetailActivity::class.java)
+        val intent = Intent(this, roomDetailActivity::class.java)
         intent.putExtra("_id", room._id)
         startActivity(intent)    }
 }

@@ -1,6 +1,5 @@
 package com.example.ecoguide.View
 
-import Chambres
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +8,7 @@ import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ecoguide.Model.Chambres
 import com.example.myapplication.R
 import com.google.android.material.datepicker.MaterialDatePicker
 
@@ -17,7 +17,6 @@ class BookingFormActivity : AppCompatActivity() {
 
     private lateinit var hoursEditText: EditText
     private lateinit var totalPriceTextView: TextView
-    private lateinit var forMeSwitch: Switch
     private lateinit var chambres: Chambres
     private lateinit var datePicker: MaterialDatePicker<Long>
     private lateinit var calendar: DatePicker
@@ -27,7 +26,6 @@ class BookingFormActivity : AppCompatActivity() {
         hoursEditText = findViewById(R.id.daysEditText)
         totalPriceTextView = findViewById(R.id.totalPriceTextView)
 
-        val roomId = "6569d53564a23b36f0344908"
         chambres = intent.getParcelableExtra("chambres") ?: Chambres("", "", 100, "", true, 5, 3)
 
         // Add TextWatcher to calculate total price dynamically
@@ -46,12 +44,12 @@ class BookingFormActivity : AppCompatActivity() {
             }
         })
 
-        // Fetch guide availability and set available dates in the date picker
+        // Fetch room availability and set available dates in the date picker
     }
     private fun calculateAndDisplayTotalPrice(hoursText: String) {
         if (hoursText.isNotBlank()) {
             val numberOfHours = hoursText.toInt()
-            val pricePerHour = 15 // Assuming pricePerHour is a property in the Guide model
+            val pricePerHour = 15 // Assuming pricePerHour is a property in the room model
             val totalPrice = numberOfHours * pricePerHour
             totalPriceTextView.text = "Total Price: $totalPrice" // Update the UI with the total price
         } else {

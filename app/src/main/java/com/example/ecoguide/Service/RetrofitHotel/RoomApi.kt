@@ -2,8 +2,8 @@ package tn.esprit.ecoventura.apiService
 
 
 
-import Chambres
-import ChambresApiResponse
+import com.example.ecoguide.Model.Chambres
+import com.example.ecoguide.Model.ChambresApiResponse
 import com.example.ecoguide.Model.Hotel
 import com.example.ecoguide.Model.HotelApiResponse
 import com.google.gson.Gson
@@ -14,8 +14,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface RoomApi {
-    @GET("/api/chambres")
-    suspend fun getAllchambres(): Response<ChambresApiResponse>
+
     @GET("/api/chambre/{id}")
      fun getOnce(@Path("id") _id: String): Response<Chambres>
 

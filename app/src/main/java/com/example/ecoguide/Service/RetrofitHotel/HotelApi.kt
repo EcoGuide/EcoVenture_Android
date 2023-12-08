@@ -2,7 +2,7 @@ package tn.esprit.ecoventura.apiService
 
 
 
-import Chambres
+import com.example.ecoguide.Model.Chambres
 import com.example.ecoguide.Model.Hotel
 import com.example.ecoguide.Model.HotelApiResponse
 import com.google.gson.Gson

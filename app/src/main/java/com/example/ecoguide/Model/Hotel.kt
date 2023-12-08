@@ -1,5 +1,4 @@
 package com.example.ecoguide.Model
-import Chambres
 import android.os.Parcel
 import android.os.Parcelable
 data class Hotel(
