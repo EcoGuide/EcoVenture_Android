@@ -13,7 +13,7 @@ import com.example.myapplication.R
 import com.google.android.material.datepicker.MaterialDatePicker
 
 
-class BookingFormActivity : AppCompatActivity() {
+class BookingFormRActivity : AppCompatActivity() {
 
     private lateinit var hoursEditText: EditText
     private lateinit var totalPriceTextView: TextView
@@ -26,7 +26,7 @@ class BookingFormActivity : AppCompatActivity() {
         hoursEditText = findViewById(R.id.daysEditText)
         totalPriceTextView = findViewById(R.id.totalPriceTextView)
 
-        chambres = intent.getParcelableExtra("chambres") ?: Chambres("", "", 100, "", true, 5, 3)
+        chambres = intent.getParcelableExtra("chambres")!!
 
         // Add TextWatcher to calculate total price dynamically
         hoursEditText.addTextChangedListener(object : TextWatcher {

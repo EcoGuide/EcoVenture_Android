@@ -29,7 +29,7 @@ lateinit var roomRecyclerView: RecyclerView
         setContentView(R.layout.detail_hotel)
         roomRecyclerView = findViewById(R.id.recycler_view_Chambres)
         // Configure the RecyclerView
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,true)
         roomRecyclerView.layoutManager = layoutManager
 
         // Initialize and configure the adapter
@@ -57,6 +57,7 @@ lateinit var roomRecyclerView: RecyclerView
 
                 if (response.isSuccessful) {
                     val hotel = response.body()
+                    Log.d("hotel details",hotel.toString())
 
 
                     //charger l'image depuis l'URL
@@ -89,6 +90,7 @@ lateinit var roomRecyclerView: RecyclerView
     }
     override fun onItemClick(room: Chambres) {
         val intent = Intent(this, roomDetailActivity::class.java)
+        Log.d("chambre in parameter",room.toString())
         intent.putExtra("_id", room._id)
         startActivity(intent)    }
 }

@@ -9,13 +9,14 @@ import androidx.annotation.RequiresApi
 data class Chambres(
     val _id: String,
     val roomName: String,
-    val price: Int, // Use an appropriate numeric type here, like Int or Double
+    val price: Int,
     val image: String,
     val isBooked: Boolean,
-    val nbChambreType: Int, // Use an appropriate numeric type here, like Int
-    val nbPlace: Int // Use an appropriate numeric type here, like Int
-    //val reservations
+    val nbChambreType: Int,
+    val nbPlace: Int
 ): Parcelable {
+    // ... existing code ...
+
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",

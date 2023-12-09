@@ -36,9 +36,11 @@
 <!--            android:exported="true" >-->
 <!--        </activity>-->
         <activity
-            android:name="com.example.ecoguide.View.AccommodationActivity"
+            android:name="com.example.ecoguide.View.guideActivity"
             android:exported="true" >
-
+<!--        <activity-->
+<!--            android:name="com.example.ecoguide.View.AccommodationActivity"-->
+<!--            android:exported="true" >-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,10 +59,17 @@
         android:name="com.example.ecoguide.View.roomDetailActivity"
         android:exported="false" />
         <activity
-            android:name="com.example.ecoguide.View.BookingFormActivity"
+            android:name="com.example.ecoguide.View.BookingFormRActivity"
             android:exported="false" />
 <!--        <activity android:name="com.example.ecoguide.View.H" />-->
-
+        <activity
+            android:name="com.example.ecoguide.View.guideDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.ecoguide.View.BookingFormActivity"
+            android:exported="false" />
     </application>
+
+
 
 </manifest>

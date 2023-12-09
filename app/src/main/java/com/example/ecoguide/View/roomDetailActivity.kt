@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.ecoguide.Model.Chambres
+import com.example.ecoguide.Model.Guide
 import com.example.myapplication.R
 import com.squareup.picasso.Picasso
 
@@ -24,7 +25,7 @@ class roomDetailActivity : AppCompatActivity() {
 //    private var guideList: ArrayList<guide> = ArrayList()
 //    lateinit var guideAdapter: guideAdapter
 
-    private lateinit var room2: Chambres
+    private lateinit var room: Chambres
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,7 @@ class roomDetailActivity : AppCompatActivity() {
 
         // get guidedId from intent
         val _id = intent.getStringExtra("_id")
+        Log.d("idd",_id.toString())
         if (_id.isNullOrEmpty()) {
             showToast("Invalid room ID.")
             finish() // Close the activity if the ID is not provided.
@@ -49,20 +51,20 @@ class roomDetailActivity : AppCompatActivity() {
             try {
                 val response = apiService.getOnce(_id ?: "")
                 if (response.isSuccessful) {
-                   val room = response.body()
+                    room = response.body()!!
+                    Log.d("Room details",room.toString())
 
-
-                    roomnameTextView.text = room?.roomName
-                    nbroomTextView.text = "${room?.nbChambreType}"
-                    priceTextView.text = "${room?.price}"
-                    Log.d("roomInRoomDetail", "$room")
+                    roomnameTextView.text = room.roomName?: "N/A"
+                    nbroomTextView.text = "${room.nbChambreType?:0}"
+                    priceTextView.text = "${room.price?:0}"
                     Picasso.get()
-                        .load(room?.image)
+                        .load(room.image)
                         .into(imageView)
 
                 } else {
                     showToast("Failed to fetch guided details.")
                     Log.e("API_ERROR", "Error: ${response.code()}")
+                    Log.d("Room detailssss", {response.code()}.toString())
 
                 }
             } catch (e: Exception) {
@@ -72,8 +74,8 @@ class roomDetailActivity : AppCompatActivity() {
 
         }
         bookNowButton.setOnClickListener {
-            val intent = Intent(this, BookingFormActivity::class.java)
-            intent.putExtra("chambres", room2)
+            val intent = Intent(this, BookingFormRActivity::class.java)
+            intent.putExtra("chambres", room)
             startActivity(intent)
         }
     }
