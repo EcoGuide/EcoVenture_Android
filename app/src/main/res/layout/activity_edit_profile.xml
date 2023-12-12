@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imgProfilePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="257dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/pr1" />
+
+        <EditText
+            android:id="@+id/editTextUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_edit_text"
+            android:drawableStart="@drawable/account_name"
+            android:hint="  username"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editTextUserEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_edit_text"
+            android:drawableStart="@drawable/mail_icon"
+
+            android:hint="  email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/editTextUserPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_edit_text"
+            android:drawableStart="@drawable/phone_icon"
+
+            android:hint="  phone"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border_edit_text"
+            android:drawableStart="@drawable/pwd"
+
+            android:hint="  password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnSaveChanges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="  Save changes"
+            android:textColor="#176FF2" />
+
+    </LinearLayout>
+</ScrollView>

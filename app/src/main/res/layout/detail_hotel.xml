@@ -1,0 +1,129 @@
+<!-- res/layout/activity_hotel_detail.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#FFFFFF">
+
+    <!-- Hotel Image -->
+    <ImageView
+        android:id="@+id/image_hotels"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+       />
+
+    <!-- Hotel Name -->
+    <TextView
+        android:id="@+id/text_hotel_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_hotels"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="5dp"
+        android:text="Hotel Name"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"/>
+
+    <!-- Star Rating -->
+    <ImageView
+        android:id="@+id/image_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_hotel_name"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/baseline_star_24"/>
+
+    <!-- Number of Stars -->
+    <TextView
+        android:id="@+id/text_star_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_hotel_name"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:text="5" />
+
+    <!-- Hotel Location -->
+    <TextView
+        android:id="@+id/text_hotel_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_star"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:text="Hotel Location"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"/>
+
+    <!-- Hotel Description -->
+    <TextView
+        android:id="@+id/text_hotel_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_hotel_location"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:text="Hotel Description. This is a sample description of the hotel. Replace it with the actual description."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
+
+    <!-- RecyclerView for Hotel Options -->
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:id="@+id/layout_hotel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/text_hotel_description"
+        android:orientation="vertical"
+        android:layout_gravity="start">
+
+
+        <TextView
+            android:id="@+id/textView_Hotel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="Chambres"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_Chambres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:padding="18dp"
+
+            android:scrollbars="horizontal"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_room_type" />
+    </LinearLayout>
+    <!-- RecyclerView for Room Types -->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_room"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/layout_dtails"-->
+<!--        android:orientation="vertical">-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recycler_view_room_types"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/recycler_view_options"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:padding="16dp"-->
+<!--        android:background="@android:color/darker_gray"-->
+<!--        android:clipToPadding="false"-->
+<!--        android:scrollbars="vertical"-->
+<!--        tools:listitem="@layout/item_room_type" />-->
+<!--    </LinearLayout>-->
+</RelativeLayout>

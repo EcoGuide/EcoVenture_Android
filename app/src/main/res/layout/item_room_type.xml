@@ -1,0 +1,48 @@
+<!-- res/layout/item_room_type_small.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="220dp"
+    android:orientation="vertical"
+    android:layout_centerInParent="true"
+    android:backgroundTint="@color/gris"
+    android:padding="18dp">
+
+    <!-- Room Image -->
+    <ImageView
+        android:id="@+id/image_room"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:background="@drawable/rounded_corners"
+        android:scaleType="centerCrop"
+        android:gravity="center"
+
+        />
+
+    <!-- Room Name -->
+    <TextView
+        android:id="@+id/text_room_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:gravity="center"
+
+        android:text="Room Name"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
+
+    <!-- Room Price -->
+    <TextView
+        android:id="@+id/text_room_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="60dp"
+        android:textSize="16sp"
+        android:gravity="center"
+
+        android:textColor="@android:color/black"
+        android:text="$100"/>
+
+</LinearLayout>

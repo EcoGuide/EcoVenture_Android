@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/profile_editting"
+    android:padding="16dp">
+
+
+    <EditText
+        android:id="@+id/editTextUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/account_name"
+        android:background="@drawable/border_edit_text"
+        android:hint="   Nom"/>
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/pwd"
+        android:background="@drawable/border_edit_text"
+
+        android:hint="   Password"/>
+
+    <EditText
+        android:id="@+id/editTextUserEmail"
+        android:drawableStart="@drawable/mail_icon"
+        android:background="@drawable/border_edit_text"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="   Email"/>
+
+    <EditText
+        android:id="@+id/editTextUserPhone"
+        android:layout_width="match_parent"
+        android:drawableStart="@drawable/phone_icon"
+        android:background="@drawable/border_edit_text"
+
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:hint="   Phone"/>
+
+</LinearLayout>

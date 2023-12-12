@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EcoVentura</string>
+    <string name="home">Home</string>
+    <string name="activity">Activity</string>
+    <string name="transport">Transport</string>
+    <string name="guide">Guide</string>
+</resources>

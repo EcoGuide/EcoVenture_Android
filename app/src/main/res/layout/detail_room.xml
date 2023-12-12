@@ -1,0 +1,70 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#FFFFFF">
+
+    <!-- Room Image -->
+    <ImageView
+        android:id="@+id/imageViewRoom"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Room Image"/>
+
+    <!-- Room Name -->
+    <TextView
+        android:id="@+id/roomNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageViewRoom"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="5dp"
+        android:text="Room Name"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:contentDescription="Room Name"/>
+
+
+
+    <!-- Room Capacity -->
+    <TextView
+        android:id="@+id/capacityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/roomNameTextView"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:text="Capacity: 2"
+        android:contentDescription="Room Capacity"/>
+
+    <!-- Room Description -->
+
+
+    <!-- Room Price -->
+    <TextView
+        android:id="@+id/roomPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/capacityTextView"
+        android:textColor="#0000FF"
+        android:textSize="13sp"
+        android:text="Room Price"
+        android:contentDescription="Room Price"/>
+
+    <!-- Book Now Button -->
+    <Button
+        android:id="@+id/bookRoomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/roomPriceTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Book Now"
+        android:contentDescription="Book Now Button"/>
+
+</RelativeLayout>

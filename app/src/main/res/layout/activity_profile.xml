@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_profile"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120sp"
+        android:padding="24dp"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:background="@drawable/profile_editting"
+        android:gravity="center_vertical">
+
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewProfilePicture"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            android:scaleType="centerCrop"
+
+            android:background="@drawable/circular_image" />
+
+        <TextView
+            android:id="@+id/Username"
+            android:layout_width="196dp"
+            android:layout_height="56dp"
+            android:elevation="10dp"
+
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageButton
+            android:id="@+id/btnEditImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="20dp"
+            android:elevation="20dp"
+
+            android:background="@drawable/updateimage" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"/>
+
+
+
+    <TextView
+        android:id="@+id/textViewPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/phone_icon"
+        android:drawablePadding="8dp"
+        android:elevation="5dp"
+        android:text="Phone Number"
+        android:background="@drawable/profile_editting"
+
+        android:gravity="center_vertical"/>
+
+    <!-- Optional divider between TextViews -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/gray_profile"
+        android:layout_marginTop="0dp"
+        />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/mail_icon"
+        android:drawablePadding="8dp"
+        android:elevation="5dp"
+
+        android:background="@drawable/profile_editting"
+        android:text="Email"
+        android:gravity="center_vertical"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/gray_profile"
+        android:layout_marginTop="16dp"/>
+    <!-- Repeat the following block for each menu item, using appropriate icons and text -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="5dp"
+
+        android:background="@drawable/profile_editting"
+        android:padding="1dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/favorite_24"
+            android:drawablePadding="8dp"
+            android:background="@drawable/profile_editting"
+            android:text="Favorites Destinations"
+            android:padding="16dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/payments"
+            android:drawablePadding="8dp"
+            android:text="Payments"
+            android:padding="16dp"
+            android:background="@drawable/profile_editting"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/profileedit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/edit_profile_24"
+            android:drawablePadding="8dp"
+            android:text=" Edit you Profile"
+            android:padding="16dp"
+            android:background="@drawable/profile_editting"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/gray_profile"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/settings_24"
+        android:drawablePadding="8dp"
+        android:text=" Settings"
+        android:elevation="5dp"
+
+        android:padding="16dp"
+        android:background="@drawable/profile_editting"
+
+        android:gravity="center_vertical"/>
+    <!-- Add more TextViews for other menu items -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/gray_profile"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/Logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/red"
+        android:text="Log Out"
+
+        />
+</LinearLayout>
