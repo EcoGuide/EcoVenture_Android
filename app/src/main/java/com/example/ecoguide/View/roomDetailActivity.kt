@@ -72,8 +72,15 @@ class roomDetailActivity : AppCompatActivity() {
 
         }
         bookNowButton.setOnClickListener {
+<<<<<<< Updated upstream
             val intent = Intent(this, BookingFormActivity::class.java)
             intent.putExtra("chambres", room2)
+=======
+            val intent = Intent(this, BookingFormRActivity::class.java)
+            intent.putExtra("chambres", room)
+            Log.d("chambre in parameter",room.toString())
+
+>>>>>>> Stashed changes
             startActivity(intent)
         }
     }
