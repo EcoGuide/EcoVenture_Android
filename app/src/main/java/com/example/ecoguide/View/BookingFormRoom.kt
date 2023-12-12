@@ -32,7 +32,7 @@ class BookingFormRActivity : AppCompatActivity() {
         hoursEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 // Calculate total price when the text changes
-                calculateAndDisplayTotalPrice(s.toString())
+                calculateAndDisplayTotalPrice(s.toString()) 
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
