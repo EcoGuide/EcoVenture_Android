@@ -1,5 +1,6 @@
 package com.example.ecoguide.View
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -45,11 +46,19 @@ class AccommodationActivity : AppCompatActivity(), HotelAdapter.OnItemClickListe
 
     private fun loadHotelData() {
         val apiService = HotelApi.create()
+        // get token from shared prefenrece
+        val sharedPref = getSharedPreferences(
+            "com.example.myapp.PREFERENCE_FILE_KEY",
+            Context.MODE_PRIVATE
+        )
+        val header = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null) ;
 
         lifecycleScope.launch(Dispatchers.Main) {
             try {
                 Log.d("tag", "zzzzzz")
-                val response = apiService.getAllHotels()
+                // thot token f authorization (header)
+
+                val response = apiService.getAllHotels("Bearer ${header.toString() }")
                 Log.d("tag", "${response.body()}")
 
                 if (response.isSuccessful) {

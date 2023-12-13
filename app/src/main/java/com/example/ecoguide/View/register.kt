@@ -1,5 +1,6 @@
 package com.example.ecoguide.View
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,11 @@ class register : AppCompatActivity() {
         //setContentView(R.layout.activity_register)
         val apiInterface = RetrofitClient.buildService(ApiService::class.java)
 
+        binding.backtosignin.setOnClickListener {
+        val intent = Intent(this, login::class.java)
+        startActivity(intent)
+        finish()
+}
         binding.signUpButton.setOnClickListener {
             val emailBody = binding.emailEditText.text.toString().trim()
             val passwordBody = binding.passwordEditText.text.toString().trim()

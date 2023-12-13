@@ -8,13 +8,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Path
 
 interface RoomApi {
 
 
     @GET("/api/chambre/{id}")
-    suspend fun getOnce(@Path("id") _id: String): Response<Chambres>
+    suspend fun getOnce(@Header("Authorization") header: String,@Path("id") _id: String): Response<Chambres>
     companion object {
         private var BASE_URL = "http://192.168.117.1:3000/"
         fun create(): RoomApi {

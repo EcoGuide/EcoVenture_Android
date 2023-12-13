@@ -10,11 +10,12 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Path
 
 interface HotelApi {
     @GET("/api/hotels")
-    suspend fun getAllHotels(): Response<HotelApiResponse>
+    suspend fun getAllHotels(@Header("Authorization") header: String): Response<HotelApiResponse>
     @GET("/api/hotel/{id}")
     suspend fun getOnce(@Path("id") _id: String): Response<Hotel>
     @GET("/api/hotel/{id}/chambres")

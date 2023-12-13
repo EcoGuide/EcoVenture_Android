@@ -126,7 +126,6 @@ class profile : AppCompatActivity() {
         Log.d(" Authenticate Token", "${token.toString()}")
         val editButton = findViewById<TextView>(R.id.profileedit)
         token_de_passage = token;
-
         binding.btnEditImage.setOnClickListener{
             openImageChooser()
         }
@@ -202,7 +201,50 @@ class profile : AppCompatActivity() {
                                             binding.Username.text = user.name
                                             binding.textViewEmail.text = user.email
                                             binding.textViewPhoneNumber.text = user.telephone
+                                            val imageUrl = "http://localhost:3000/Public/image/406915526_902598478048328_8587398140043988899_n.jpg1702479305823.jpg"
+                                            Glide.with(this@profile)
+                                                .load(imageUrl)
+                                                .into(binding.imageViewProfilePicture)
+                                            Log.d("imageUrl", imageUrl)
+                                             /* userDetails.image?.let {
+                                                     Glide.with(this@profile)
+                                                        .load(it)
+                                                        .into(binding.imageViewProfilePicture)
+                                                }
+                                            */
 
+
+
+
+
+
+                                            val drawable = binding.imageViewProfilePicture
+                                            if (drawable == null) {
+                                                Log.d("CheckImageView", "ImageView is empty.")
+                                            } else {
+                                                Log.d("succes", "ImageView has an image.")
+                                            }
+                                            /*  Glide.with(this@profile)
+                                                                                          .load(imageUrl)
+                                                                                          .into(binding.imageViewProfilePicture)
+                                                                                      Log.d("imageUrl", imageUrl)
+                                          */
+                                            /*  userDetails.image?.let {
+                                                  Glide.with(this@profile)
+                                                      .load(it) // Utilisez l'URL de l'image
+                                                      .into(binding.imageViewProfilePicture)
+                                              }*/
+                                                ?: Log.d("ProfileImage", "Image URL is null")
+
+
+                                        /*
+                                        withContext(Dispatchers.Main) {
+        // Affichez l'image en utilisant Glide ou une autre bibliothèque
+        Glide.with(this@YourActivity)
+            .load(userDetails.image) // Utilisez l'URL de l'image
+            .into(yourImageView) // Votre ImageView où afficher l'image
+    }
+                                         */
                                          //   Log.d("onResponseImage: ",user.image.replace("http://localhost:3000/",BASE_URL))
                                            // Glide.with(baseContext).load(user.image.replace("http://localhost:3000/",BASE_URL)).into(binding.imageViewProfilePicture)
                                         }
@@ -214,8 +256,7 @@ class profile : AppCompatActivity() {
                                         ).show()
                                     }
                                 } else {
-                                    // Gérez les autres cas de réponse non réussie
-                                    Snackbar.make(
+                                     Snackbar.make(
                                         binding.root,
                                         "Échec de la connexion : ${response.errorBody()?.string()}",
                                         Snackbar.LENGTH_LONG

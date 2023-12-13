@@ -46,6 +46,7 @@ class reset_password : AppCompatActivity() {
                     "com.example.myapp.PREFERENCE_FILE_KEY",
                     Context.MODE_PRIVATE
                 )
+                
                 //-----------------Get Code from forget_password_activity-----------------
                 val savedCodeInput = sharedPref.getString("CodeVerification", null) // Utilisez null ou une valeur par défaut si vous le souhaitez
                 Log.d("Code veriffication", "${savedCodeInput.toString()}")
@@ -53,7 +54,7 @@ class reset_password : AppCompatActivity() {
                 val resetPasswordBody = ResetPassword( savedCodeInput.toString(), newPwd)
                 //----- Get Token from Share Preferences to include it to header Authorization---------
                 val header = sharedPref.getString("TOKEN_VERIFICATION", null) ;
-                Log.d("Code veriffication", "${header.toString()}")
+                 Log.d("Code veriffication", "${header.toString()}")
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO){
                         apiInterface.resetPassword(  "Bearer ${header.toString() }",resetPasswordBody).enqueue(object : Callback<LoginResponse> {

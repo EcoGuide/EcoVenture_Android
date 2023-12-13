@@ -123,7 +123,8 @@ class login : AppCompatActivity() {
                                     // Vérifiez si loginResponse n'est pas null et que le token n'est pas null
                                     loginResponse?.let {
                                         if (it.Token != null) {
-                                            val intent = Intent(this@login, profile::class.java)
+
+                                          val intent = Intent(this@login, profile::class.java)
                                             startActivity(intent)
                                             finish()
                                             val sharedPref = getSharedPreferences(

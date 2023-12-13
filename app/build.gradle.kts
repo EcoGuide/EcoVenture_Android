@@ -65,5 +65,6 @@ dependencies {
     implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     implementation ("androidx.biometric:biometric:1.1.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
-}
+ }

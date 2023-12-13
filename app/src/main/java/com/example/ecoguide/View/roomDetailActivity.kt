@@ -1,6 +1,7 @@
 package com.example.ecoguide.View
 
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -47,9 +48,15 @@ class roomDetailActivity : AppCompatActivity() {
             return
         }
         val apiService = RoomApi.create()
+        val sharedPref = getSharedPreferences(
+            "com.example.myapp.PREFERENCE_FILE_KEY",
+            Context.MODE_PRIVATE
+        )
+        val header = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null) ;
         lifecycleScope.launch(Dispatchers.Main) {
             try {
-                val response = apiService.getOnce(_id ?: "")
+                val response = apiService.getOnce(        "Bearer ${header.toString() }"
+                        ,_id ?: "")
                 if (response.isSuccessful) {
                     room = response.body()!!
                     Log.d("Room details",room.toString())
