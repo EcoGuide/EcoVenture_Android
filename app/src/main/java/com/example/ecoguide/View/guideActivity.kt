@@ -9,6 +9,7 @@ import com.example.myapplication.R
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
@@ -59,12 +60,19 @@ class guideActivity :  AppCompatActivity(), GuideAdapter.OnItemClickListener {
 
 
     private fun loadGuideData() {
+
         val apiService = GuideApi.create()
+        val sharedPref = getSharedPreferences(
+            "com.example.myapp.PREFERENCE_FILE_KEY",
+            Context.MODE_PRIVATE
+        )
+        val header = sharedPref.getString("TOKEN_KEY_AUTHENTICATE", null) ;
 
         lifecycleScope.launch(Dispatchers.Main) {
             try {
                 Log.d("tag", "zzzzzz")
-                val response = apiService.getAllGuides()
+
+                val response = apiService.getAllGuides("Bearer ${header.toString() }")
                 Log.d("teag", "${response.body()}")
 
                 if (response.isSuccessful) {

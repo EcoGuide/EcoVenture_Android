@@ -21,7 +21,7 @@ interface HotelApi {
     @GET("/api/hotel/{id}/chambres")
     suspend fun getchambreshotel(@Path("id") _id: String): Response< ArrayList<Chambres>>
     companion object {
-        private var BASE_URL = "http://192.168.117.1:3000/"
+        private var BASE_URL = "http://192.168.1.126:3000/"
         fun create(): HotelApi {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())

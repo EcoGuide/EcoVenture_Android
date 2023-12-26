@@ -17,7 +17,7 @@ interface RoomApi {
     @GET("/api/chambre/{id}")
     suspend fun getOnce(@Header("Authorization") header: String,@Path("id") _id: String): Response<Chambres>
     companion object {
-        private var BASE_URL = "http://192.168.117.1:3000/"
+        private var BASE_URL = "http://192.168.1.126:3000/"
         fun create(): RoomApi {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())

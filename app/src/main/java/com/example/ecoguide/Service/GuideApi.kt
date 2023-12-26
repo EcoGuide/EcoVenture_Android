@@ -13,13 +13,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
 
 interface GuideApi {
     @GET("/api/guides")
-    suspend fun getAllGuides(): Response<GuideApiResponse>
+    suspend fun getAllGuides(@Header("Authorization") header: String): Response<GuideApiResponse>
 
     @GET("/api/guides/{id}/availability")
     suspend fun getGuideAvailability(@Path("id") guideId: String): Response<List<String>>

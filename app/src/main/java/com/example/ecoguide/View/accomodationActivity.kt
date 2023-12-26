@@ -46,7 +46,6 @@ class AccommodationActivity : AppCompatActivity(), HotelAdapter.OnItemClickListe
 
     private fun loadHotelData() {
         val apiService = HotelApi.create()
-        // get token from shared prefenrece
         val sharedPref = getSharedPreferences(
             "com.example.myapp.PREFERENCE_FILE_KEY",
             Context.MODE_PRIVATE

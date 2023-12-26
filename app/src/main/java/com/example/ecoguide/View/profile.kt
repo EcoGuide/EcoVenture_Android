@@ -201,11 +201,16 @@ class profile : AppCompatActivity() {
                                             binding.Username.text = user.name
                                             binding.textViewEmail.text = user.email
                                             binding.textViewPhoneNumber.text = user.telephone
-                                            val imageUrl = "http://localhost:3000/Public/image/406915526_902598478048328_8587398140043988899_n.jpg1702479305823.jpg"
-                                            Glide.with(this@profile)
-                                                .load(imageUrl)
+                                                val BASE_URL = "http://192.168.1.126:3000/"
+
+                                          //  val imageUrl = "http://localhost:3000/Public/image/406915526_902598478048328_8587398140043988899_n.jpg1702479305823.jpg"
+                                            val imageUrl =  user.image
+                                             val cleanedImageUrl = imageUrl.replace("http://localhost:3000/",BASE_URL );
+                                            Log.d("cleanedImageUrl", cleanedImageUrl)
+                                             Glide.with(this@profile)
+                                                .load(cleanedImageUrl)
                                                 .into(binding.imageViewProfilePicture)
-                                            Log.d("imageUrl", imageUrl)
+                                            Log.d("imageUrl", cleanedImageUrl)
                                              /* userDetails.image?.let {
                                                      Glide.with(this@profile)
                                                         .load(it)
